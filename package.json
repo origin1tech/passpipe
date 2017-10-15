@@ -1,0 +1,32 @@
+{
+  "name": "passpipe",
+  "version": "1.0.0",
+  "description": "Pipe output to simple handler for testing in .spec files.",
+  "main": "index.js",
+  "typings": "index.d.ts",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/origin1tech/passpipe.git"
+  },
+  "keywords": [
+    "Stream",
+    "Chai",
+    "Mocha",
+    "PassThrough",
+    "Spawn",
+    "Pipe"
+  ],
+  "author": "Origin1 Technologies <origin1tech@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/origin1tech/passpipe/issues"
+  },
+  "homepage": "https://github.com/origin1tech/passpipe#readme",
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "mocha": "^4.0.1"
+  }
+}
