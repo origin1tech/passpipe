@@ -14,7 +14,15 @@ function thruHandler(fn) {
   return thru;
 }
 
-module.exports = function (method, args, done) {
+/**
+ * Pipe
+ * : Common method for handling pass through pipe.
+ *
+ * @param {string|object|function} method the command, method or ChildProcess to run.
+ * @param {string|array} args the arguments to pass to command or method.
+ * @param {function} done a callback on completed.
+ */
+function _pipe(method, args, done) {
 
   let proc;
   let isProc =
@@ -57,4 +65,45 @@ module.exports = function (method, args, done) {
 
   return proc;
 
+};
+
+/**
+ * Command
+ * : A command that should be spawned and then piped.
+ *
+ * @param {string} command the command to spawn and run.
+ * @param {string|array} args the arguments to pass to command process.
+ * @param {function} done a callback on completed.
+ */
+function _command(command, args, done) {
+  return _pipe(command, args, done);
+};
+
+/**
+ * Method
+ * : Calls a method passing arguments which this returns a ChildProcess.
+ *
+ * @param {string} method the method which returns a ChildProcess to be run.
+ * @param {string|array} args the arguments to pass to command process.
+ * @param {function} done a callback on completed.
+ */
+function _method(method, args, done) {
+  return _pipe(method, args, done);
+};
+
+/**
+ * Process
+ * : Pipes an existing ChildProcess.
+ *
+ * @param {string} proc the already created ChildProcess to be piped.
+ * @param {function} done a callback on completed.
+ */
+function _proc(proc, done) {
+  return _pipe(proc, [], done);
+};
+
+module.exports = {
+  command: _command,
+  method: _method,
+  proc: _proc
 };

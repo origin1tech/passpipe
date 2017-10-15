@@ -9,7 +9,7 @@ const exp = /^(\/usr\/local|\\users\\.+\\AppData)/;
 describe('Passpipe', () => {
 
   it('should ensure npm prefix by passing command.', (done) => {
-    passpipe('npm', ['prefix', '-g'], (chunk) => {
+    passpipe.command('npm', ['prefix', '-g'], (chunk) => {
       assert.equal(exp.test(chunk), true);
       done();
     })
@@ -19,21 +19,21 @@ describe('Passpipe', () => {
   // useful when you have a custom method that returns
   // a child process.
   it('should ensure npm prefix passwing spawn.', (done) => {
-    passpipe(spawn, ['npm', ['prefix', '-g']], (chunk) => {
+    passpipe.method(spawn, ['npm', ['prefix', '-g']], (chunk) => {
       assert.equal(exp.test(chunk), true);
       done();
     })
   });
 
   it('should ensure npm prefix passing args as space separated string.', (done) => {
-    passpipe('npm', 'prefix -g', (chunk) => {
+    passpipe.command('npm', 'prefix -g', (chunk) => {
       assert.equal(exp.test(chunk), true);
       done();
     })
   });
 
   it('should ensure npm prefix passing args as csv separated string.', (done) => {
-    passpipe('npm', 'prefix, -g', (chunk) => {
+    passpipe.command('npm', 'prefix, -g', (chunk) => {
       assert.equal(exp.test(chunk), true);
       done();
     })
@@ -41,7 +41,7 @@ describe('Passpipe', () => {
 
   it('should ensure npm prefix passing existing ChildProcess.', (done) => {
     let proc = spawn('npm', ['prefix', '-g']);
-    passpipe(proc, (chunk) => {
+    passpipe.proc(proc, (chunk) => {
       assert.equal(exp.test(chunk), true);
       done();
     })
