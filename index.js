@@ -61,11 +61,16 @@ function _pipe(method, args, done) {
     proc = method(...args);
 
   const thru = thruHandler(done);
+
+  proc.stdin = proc.stdin || process.stdin;
+  proc.stdout = proc.stdout || process.stdout;
+  proc.stderr = proc.stderr || process.stderr;
+
   proc.stdout.pipe(thru);
 
   return proc;
 
-};
+}
 
 /**
  * Command
@@ -77,7 +82,7 @@ function _pipe(method, args, done) {
  */
 function _command(command, args, done) {
   return _pipe(command, args, done);
-};
+}
 
 /**
  * Method
@@ -89,7 +94,7 @@ function _command(command, args, done) {
  */
 function _method(method, args, done) {
   return _pipe(method, args, done);
-};
+}
 
 /**
  * Process
@@ -100,7 +105,7 @@ function _method(method, args, done) {
  */
 function _proc(proc, done) {
   return _pipe(proc, [], done);
-};
+}
 
 module.exports = {
   command: _command,
